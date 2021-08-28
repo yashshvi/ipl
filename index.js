@@ -1,8 +1,14 @@
 const request=require('request'); // for data request response
 console.log("before");
 const cheerio=require('cheerio'); // for data extraction from url
+const fs=require("fs");
+const path=require("path");
+let xlsx=require('xlsx');
 // const request = require('request');
 let TeamInfo=require('./teaminfo');
+// const path = require('path');
+let iplfolder=path.join(__dirname,"ipl");
+makingdir(iplfolder);
 request('https://www.espncricinfo.com/series/ipl-2020-21-1210595',
  function (error, response, html) {
   if(error){
@@ -49,4 +55,10 @@ function ScoreCardFun(html){
         // console.log(ScoreLink);
         TeamInfo.pms(ScoreLink);       
     }
+}
+
+function makingdir(path){
+  if(fs.existsSync(path)==false){
+    fs.mkdirSync(path);
+  }
 }
